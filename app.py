@@ -5,20 +5,11 @@ Created on Thu Aug 30 19:16:45 2018
 
 @author: stobe
 """
-import os
 from flask import Flask
 from flask import request
 import base64
 
 app = Flask(__name__)
-
-def create_app():
-    app = Flask(__name__)
-    app.config.from_mapping(
-        SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev_key'
-    )
-
-    return app
 
 def double_minus_start_error(query):
     if len(query) < 2:
@@ -54,7 +45,6 @@ def process():
         if len(query) is 0:
             return 0
         
-        
         beg_paren = -1
         for idx, char in enumerate(query):
             if char is '(':
@@ -70,8 +60,21 @@ def process():
                 print("sulkuongelma")
                 error = True
                 return 0
+    
+        for idx, char in reversed(list(enumerate(query))):
+            if char is '+' or char is '_':
+                if idx is 0 or idx is len(query) - 1:
+                    print("syntax error: + or -")
+                    error = True
+                    return 0
+                if char is '+':
+                    return str(float(evaluate(query[slice(0, idx)])) 
+                              + float(evaluate(query[slice(idx + 1, len(query))])))
+                if char is '_':
+                    return str(float(evaluate(query[slice(0, idx)])) 
+                              - float(evaluate(query[slice(idx + 1, len(query))])))
         
-        for idx, char in enumerate(query):
+        for idx, char in reversed(list(enumerate(query))):
             if char is '/' or char is '*':
                 if idx is 0 or idx is len(query) - 1:
                     print("last/first symbol is / or *")
@@ -88,21 +91,11 @@ def process():
                         return 0
                     return str(float(evaluate(query[slice(0, idx)])) 
                               / float(evaluate(query[slice(idx + 1, len(query))])))
-                    
-        
-        for idx, char in enumerate(query):
-            if char is '+' or char is '_':
-                if idx is 0 or idx is len(query) - 1:
-                    error = True
-                    return 0
-                if char is '+':
-                    return str(float(evaluate(query[slice(0, idx)])) 
-                              + float(evaluate(query[slice(idx + 1, len(query))])))
-                if char is '_':
-                    return str(float(evaluate(query[slice(0, idx)])) 
-                              - float(evaluate(query[slice(idx + 1, len(query))])))
         
         if query[0] is '-' and query[1] is '-':
+            return query[2:]
+        
+        if query[0] is '_' and query[1] is '-':
             return query[2:]
         
         is_decimal = False
@@ -122,3 +115,6 @@ def process():
     if error is True:
         return "erroneous query", 400
     return return_val
+
+if __name__ == "__main__":
+	app.run()
