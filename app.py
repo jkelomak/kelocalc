@@ -29,10 +29,14 @@ def separate_minusoperators(query):
 
 @app.route('/calculus')
 def process():
-    query=base64.b64decode(request.args.get('query')) \
+    query=""
+    try:
+         query=base64.b64decode(request.args.get('query')) \
             .decode("ASCII") \
             .replace(" ", "")
-    
+    except:
+        return "encoding error", 400
+        
     error = double_minus_start_error(query)
     query = separate_minusoperators(query)
     
