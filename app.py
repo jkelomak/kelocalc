@@ -113,7 +113,7 @@ def process():
     
     return_val = evaluate(query)
     if error is True:
-        return "erroneous query", 400
+        return "erroneous query"
     return return_val
 
 if __name__ == "__main__":
