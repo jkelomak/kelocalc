@@ -12,23 +12,9 @@ to the order of operations. Note that the unary minus has the highest precedence
 of operations contrary to common belief. Upon encountering an error, the
 recursive function stops evaluating and returns 0 while setting error to be true
 
-Errors seem to be handled a little all over the place. However the syntax errors
-in a calculator query are not always trivial and best caught while going through
-the syntax like the evaluate function does. For this reason the syntax error 
-catching is incorporated inside the evaluate function save for one specific
-error below. 
-
-Below is the specification for the API:
-    
-Endpoint:
-GET /calculus?query=[input]
-
-input: UTF-8 with BASE64 encoding
-
-syntax for query:
-
-output:
-
+The syntax errors in a calculator query are not always trivial and best caught
+while going through the syntax like the evaluate function does. For this reason
+the syntax error catching is incorporated inside the evaluate function.
 """
 from flask import Flask
 from flask import request
