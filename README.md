@@ -21,3 +21,5 @@ on error:
 with HTTP error code 400
 
 three kinds of errors: encoding error, syntax error, zero division error
+
+NOTE: The creators python installation is quite messed up. Because of this, there are a lot of unnecessary things in the requirements. My apologies, and use caution!
