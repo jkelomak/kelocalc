@@ -1,8 +1,7 @@
 # kelocalc
 a simple web-API calculator
 
-Deployed in 
-Web
+Deployed in https://kelocalc.herokuapp.com/
 
 specification for the API:
     
