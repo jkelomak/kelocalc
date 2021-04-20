@@ -39,7 +39,7 @@ prometheus-client==0.3.1
 prompt-toolkit==1.0.15
 psutil==5.4.7
 ptyprocess==0.6.0
-py==1.6.0
+py==1.10.0
 python-dateutil==2.7.3
 python-dotenv==0.9.1
 pytz==2018.5
